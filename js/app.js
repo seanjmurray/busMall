@@ -39,27 +39,33 @@ function makeProducts(){
 }
 makeProducts();
 
-function renderProduct(array){
-  pElement.textContent = '';
-  var ran1 = randomIndexer(array.length);
-  var ran2 = randomIndexer(array.length);
-  var ran3 = randomIndexer(array.length);
-  while(ran1 === ran2 || ran1 === ran3 || ran2 === ran3){
-    ran2 = randomIndexer(array.length);
-    ran3 = randomIndexer(array.length);
+var indexArray = [];
+function productIndex(array){
+  var index = randomIndexer(array.length);
+  while(indexArray.includes(index)){
+    index = randomIndexer(array.length);
   }
-  products[ran1].render();
-  products[ran2].render();
-  products[ran3].render();
+  indexArray.push(index);
+  if(indexArray.length > 6){
+    indexArray.shift();
+  }
+  return index;
 }
-renderProduct(products);
+function renderProduct(){
+  var index = productIndex(products);
+  products[index].render();
+}
+
+
 
 var j = 0;
-var rounds = 25;
 
-document.getElementById('rounds').addEventListener('submit', function(){
+var rounds = document.getElementById('rounds').addEventListener('submit', function(){
   event.preventDefault();
   rounds = Number(event.target.num.value);
+  renderProduct();
+  renderProduct();
+  renderProduct();
   return rounds;
 });
 
@@ -72,11 +78,15 @@ pElement.addEventListener('click', function handler(){
         products[i].votes++;
       }
     }
-    renderProduct(products);
+    pElement.textContent = '';
+    renderProduct();
+    renderProduct();
+    renderProduct();
     console.log(j);
     j++;
   }else{
     this.removeEventListener('click',handler);
+    pElement.textContent = '';
     for(var k = 0; k<products.length;k++){
       products[k].results();
     }
