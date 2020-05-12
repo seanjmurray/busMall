@@ -1,7 +1,7 @@
 'use strict';
 
 var pElement = document.getElementById('products');
-
+var rElement = document.getElementById('results');
 var products = [];
 var images = ['bag', 'banana', 'bathroom','boots','breakfast','bubblegum','chair','cthulhu','dog-duck','dragon','pen','pet-sweep','scissors','shark','sweep','tauntaun','unicorn','usb','water-can','wine-glass'];
 
@@ -20,7 +20,12 @@ Products.prototype.render = function(){
   img.title = this.title;
   img.alt = this.alt;
   pElement.appendChild(img);
-  this.view++;
+  this.views++;
+};
+Products.prototype.results = function(){
+  var p = document.createElement('p');
+  p.textContent = `${this.title} was shown ${this.views} and was picked ${this.votes}`;
+  rElement.appendChild(p);
 };
 //////////////////////////////////HELPER/////////////////////////////////
 function randomIndexer(max){
@@ -72,6 +77,9 @@ pElement.addEventListener('click', function handler(){
     j++;
   }else{
     this.removeEventListener('click',handler);
+    for(var k = 0; k<products.length;k++){
+      products[k].results();
+    }
   }
 });
 
