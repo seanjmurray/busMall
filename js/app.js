@@ -29,7 +29,7 @@ Products.prototype.results = function(){
 };
 //////////////////////////////////HELPER/////////////////////////////////
 function randomIndexer(max){
-  return Math.floor(Math.random() * (max+1));
+  return Math.floor(Math.random() * max);
 }
 
 function makeProducts(){
@@ -41,12 +41,12 @@ makeProducts();
 
 function renderProduct(array){
   pElement.textContent = '';
-  var ran1 = randomIndexer(array.length-1);
-  var ran2 = randomIndexer(array.length-1);
-  var ran3 = randomIndexer(array.length-1);
+  var ran1 = randomIndexer(array.length);
+  var ran2 = randomIndexer(array.length);
+  var ran3 = randomIndexer(array.length);
   while(ran1 === ran2 || ran1 === ran3 || ran2 === ran3){
-    ran2 = randomIndexer(array.length-1);
-    ran3 = randomIndexer(array.length-1);
+    ran2 = randomIndexer(array.length);
+    ran3 = randomIndexer(array.length);
   }
   products[ran1].render();
   products[ran2].render();
