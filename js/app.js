@@ -1,18 +1,17 @@
 'use strict';
 
 var pElement = document.getElementById('products');
-var rElement = document.getElementById('results');
 var products = [];
 var results = [];
 var views = [];
 var images = ['bag', 'banana', 'bathroom','boots','breakfast','bubblegum','chair','cthulhu','dog-duck','dragon','pen','pet-sweep','scissors','shark','sweep','tauntaun','unicorn','usb','water-can','wine-glass'];
 
-var Products = function(image,title){
+var Products = function(image,title,views,votes){
   this.filePath = image;
   this.title = title;
   this.alt = title;
-  this.views = 0;
-  this.votes = 0;
+  this.views = views;
+  this.votes = votes;
   products.push(this);
 };
 
@@ -35,10 +34,24 @@ function randomIndexer(max){
 
 function makeProducts(){
   for(var i =0;i<images.length;i++){
-    new Products(`images/${images[i]}.jpg`,`${images[i]}`);
+    new Products(`images/${images[i]}.jpg`,`${images[i]}`,0,0);
   }
 }
-makeProducts();
+var sProducts = [];
+function isLocal(){
+  if(localStorage.length>0){
+    console.log('if');
+    sProducts.push(JSON.parse(localStorage.getItem('sProducts')));
+    for(var i =0;i<sProducts[0].length;i++){
+      new Products(sProducts[0][i].filePath,sProducts[0][i].title,sProducts[0][i].views,sProducts[0][i].votes);
+    }
+  }else{
+    console.log('else');
+    makeProducts();
+  }
+}
+
+
 
 var indexArray = [];
 function productIndex(array){
@@ -59,11 +72,12 @@ function renderProduct(){
 
 
 
-var j = 0;
+var j = 1;
 
 var rounds = document.getElementById('rounds').addEventListener('submit', function(){
   event.preventDefault();
   rounds = Number(event.target.num.value);
+  isLocal();
   renderProduct();
   renderProduct();
   renderProduct();
@@ -71,6 +85,7 @@ var rounds = document.getElementById('rounds').addEventListener('submit', functi
 });
 
 pElement.addEventListener('click', function handler(){
+  
   console.log(rounds);
   if(j<rounds){
     var iWasClicked = event.target.title;
@@ -91,9 +106,12 @@ pElement.addEventListener('click', function handler(){
     for(var k = 0; k<products.length;k++){
       products[k].results();
       myChartThing();
+      localStorage.setItem('sProducts', JSON.stringify(products));
     }
   }
 });
+
+
 function myChartThing(){
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
