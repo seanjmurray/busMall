@@ -37,21 +37,19 @@ function makeProducts(){
     new Products(`images/${images[i]}.jpg`,`${images[i]}`,0,0);
   }
 }
-var sProducts = [];
 function isLocal(){
-  if(localStorage.length>0){
+  var sProducts;
+  if(localStorage.getItem('sProducts')){
     console.log('if');
-    sProducts.push(JSON.parse(localStorage.getItem('sProducts')));
-    for(var i =0;i<sProducts[0].length;i++){
-      new Products(sProducts[0][i].filePath,sProducts[0][i].title,sProducts[0][i].views,sProducts[0][i].votes);
+    sProducts = JSON.parse(localStorage.getItem('sProducts'));
+    for(var i =0;i<sProducts.length;i++){
+      new Products(sProducts[i].filePath,sProducts[i].title,sProducts[i].views,sProducts[i].votes);
     }
   }else{
     console.log('else');
     makeProducts();
   }
 }
-
-
 
 var indexArray = [];
 function productIndex(array){
@@ -85,7 +83,6 @@ var rounds = document.getElementById('rounds').addEventListener('submit', functi
 });
 
 pElement.addEventListener('click', function handler(){
-  
   console.log(rounds);
   if(j<rounds){
     var iWasClicked = event.target.title;
@@ -115,7 +112,7 @@ pElement.addEventListener('click', function handler(){
 function myChartThing(){
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
-    type: 'horizontalBar',
+    type: 'radar',
     data: {
       labels: images,
       datasets: [{
@@ -157,8 +154,8 @@ function myChartThing(){
         label: '# of Views',
         data: views,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
           'rgba(255, 206, 86, 0.2)',
           'rgba(75, 192, 192, 0.2)',
           'rgba(153, 102, 255, 0.2)',
