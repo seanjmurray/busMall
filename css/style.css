@@ -1,3 +1,44 @@
+body{
+  background-color: #232931;
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
+  text-align: center;
+}
+
+h1{
+  color: #4ecca3;
+  font-size: 3em;
+  font-weight: 700;
+  margin: 1em;
+}
+section{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 2em;
+}
+form{
+  margin: 4em;
+}
+input{
+  background-color: #393e46;
+  color: #fff;
+  border-radius: .5em;
+  padding: 1em;
+}
+#btn:hover{
+  transition: ease-in 250ms;
+  background-color: #4ecca3;
+}
+
 img{
+  background-color: #393e46;
+  border-radius: 1.5em;
+  padding: 1em;
   width: 200px;
+  transition: ease-in 250ms;
+}
+img:hover{
+background-color: #4ecca3;
 }

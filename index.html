@@ -4,19 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BusMall</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;700&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header>
-  <form id="rounds">
-    <label>How many rounds of Products would you like to see?
-      <input name="num" type="number" value="25">
-    </label>
-    <input type="submit">
-  </form>
+  <h1>BusMall</h1>
 </header>
 <main>
+      <form id="rounds">
+        <label>How many rounds of Products would you like to see?
+          <input name="num" type="number" value="25">
+        </label>
+        <input id="btn" type="submit">
+      </form>
   <section id="products"></section>
   <canvas id="myChart" width="400" height="400"></canvas>
 </main>
